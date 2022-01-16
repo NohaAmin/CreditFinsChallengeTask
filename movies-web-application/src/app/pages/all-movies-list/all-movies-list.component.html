@@ -1,26 +1,52 @@
-<p>all-movies-list works!</p>
+<div class="homepage-container container-fluid position-relative p-0">
 
+  <div class="homepage-header d-flex align-items-center px-3">
+    <p-selectButton
+      [options]="listItems"
+      [(ngModel)]="selectedView"
+      optionLabel="label"
+      optionValue="value"
+      [tabindex]="0"
+      (onChange)="onSelectingListType($event)"
+    ></p-selectButton>
 
-<!--<p-dataView [value]="moviesList"-->
-<!--            layout="grid"-->
-<!--&gt;-->
-<!--  <ng-template let-movie pTemplate="listItem">-->
-<!--    <div>-->
-<!--      {{movie.id}}-->
-<!--    </div>-->
-<!--  </ng-template>-->
-<!--  <ng-template let-movie pTemplate="gridItem">-->
-<!--    <div class="p-col-12 p-md-3">-->
-<!--      {{movie.name}}-->
-<!--    </div>-->
-<!--  </ng-template>-->
-<!--</p-dataView>-->
+    <a class="ps-5" (click)="resetLocalStorage()">{{'clearStorage'}}</a>
+  </div>
 
-<div class="d-flex" >
-  <div
-    *ngFor="let item of moviesList"
+  <div class="all-items-container d-flex flex-column w-100">
 
-  >
-<!--    {{item.}}-->
+    <div class="single-item-container">
+      <div class="py-3 px-5 d-flex gap-3 align-items-center"
+           *ngFor="let item of ((selectedView === 'Favourite')? this.allFavouriteMoviesList : allMoviesList)">
+        <img [src]="urls.SMALL_IMAGE_PREFIX_URL + item.posterPath" alt="movie-image">
+
+        <div class="item-details-space d-flex flex-wrap gap-3 w-100">
+          <label class="flex-grow-1 fw-normal fs-4 ">
+            {{item.title}}
+          </label>
+
+          <div class="d-flex flex-nowrap gap-5">
+            <i class="pi pi-bookmark{{favouriteMoviesListIds.includes(item.id)? '-fill' : ''}} btn-icon-action"
+               [class.mark-favourite]="favouriteMoviesListIds.includes(item.id)"
+               (click)="onSelectingBookmark(item)"
+               [pTooltip]="(favouriteMoviesListIds.includes(item.id))?
+               'Remove from Favourite' : 'Add to Favourite'"
+               tooltipPosition="bottom"
+            ></i>
+
+            <i class="pi pi-eye btn-icon-action show-btn"
+               pTooltip="Show Details" tooltipPosition="bottom"
+               (click)="showDetails(item.id)"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-paginator *ngIf="selectedView === 'All Movies'"
+                 [rows]="moviesListInfo.total_pages"
+                 [totalRecords]="moviesListInfo.total_results"
+                 (onPageChange)="paginate($event)"
+    ></p-paginator>
   </div>
 </div>

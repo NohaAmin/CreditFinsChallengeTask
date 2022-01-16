@@ -1,11 +1,10 @@
 export interface SingleMovieResult {
 id: number;
-poster_path: string;
+posterPath: string;
 title: string;
-genre_ids: number[];
-overview: string;
-release_date: string;
-popularity: number;
-vote_average: number;
+overview?: string;
+releaseDate?: string;
+popularity?: number;
+voteAverage?: number;
 }
 

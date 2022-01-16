@@ -2,6 +2,12 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.15.
 
+## Task Notes
+The task is to show all list of movies in homepage, with toggle button to show marked ones as favourite, and on clicking on show details to navigate to new page with details.
+
+## Problems Found
+The authentication api didn't work properly, so I added their implementation and didn't use them, so I saved the favourite movies  to local storage to show the filter working.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

@@ -5,7 +5,9 @@ import { SingleMoviePageComponent } from './pages/single-movie-page/single-movie
 
 const routes: Routes = [
   {path: 'movies-dashboard', component: AllMoviesListComponent},
-  {path: 'movie-details', component: SingleMoviePageComponent},
+  {path: 'approved/movies-dashboard', component: AllMoviesListComponent},
+  {path: 'approved', component: AllMoviesListComponent},
+  {path: 'movies-dashboard/:id/details', component: SingleMoviePageComponent},
   {path: '', redirectTo: 'movies-dashboard', pathMatch: 'full'}
 ];
 

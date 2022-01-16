@@ -1,0 +1,29 @@
+.homepage-header {
+  background-color: var(--main-light-color-theme);
+  height: 5rem;
+}
+
+.all-items-container {
+  .single-item-container > :nth-child(odd) {
+    background-color: var(--main-light-background);
+  }
+
+  @media only screen and (max-width: 768px) {
+    .item-details-space {
+      flex-direction: column;
+    }
+  }
+
+  .show-btn {
+    color: var(--primary-color)
+  }
+}
+
+.btn-icon-action {
+  cursor: pointer !important;
+  font-size: 3rem !important;
+}
+
+.mark-favourite {
+  color: var(--yellow-rate-bookmark) !important;
+}

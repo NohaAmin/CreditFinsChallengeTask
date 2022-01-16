@@ -2,5 +2,16 @@
 
 .app-main-variables {
   --main-light-color-theme: #fcbfca;
-  --main-light-background: #F0F1F2;
+  --main-light-background: #f2f0f0;
+  --yellow-rate-bookmark: #FACA1DFF;
+}
+
+//shared class
+.btn-icon-action {
+  cursor: pointer !important;
+  font-size: 3rem !important;
+}
+
+.mark-favourite {
+  color: var(--yellow-rate-bookmark) !important;
 }

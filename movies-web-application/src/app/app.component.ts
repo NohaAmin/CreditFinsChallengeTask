@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PrimeNGConfig} from 'primeng/api';
-import { MoviesApiService } from './services/movies-api.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +9,10 @@ import { MoviesApiService } from './services/movies-api.service';
 export class AppComponent implements OnInit {
   title = 'movies-web-application';
 
-  constructor(private primengConfig: PrimeNGConfig,
-    private moviesApiService: MoviesApiService) {
-}
+  constructor(private primengConfig: PrimeNGConfig) {
+  }
 
-ngOnInit(): void {
-this.primengConfig.ripple = true;
-
-this.moviesApiService.getMoviesGenres().subscribe((res) => {
-console.log('res', res)
-})
-}
+  ngOnInit(): void {
+    this.primengConfig.ripple = true;
+  }
 }

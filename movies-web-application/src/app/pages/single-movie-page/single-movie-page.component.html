@@ -1,1 +1,73 @@
-<p>single-movie-page works!</p>
+<div class="container-fluid d-flex flex-column movie-rate">
+  <div class="main-single-movie d-flex gap-5">
+    <img *ngIf="movieDetails.posterPath" [src]="urls.LARGE_IMAGE_PREFIX_URL + movieDetails.posterPath"
+         alt="img">
+    <div class="d-flex flex-column gap-5">
+      <div class="d-flex flex-column gap-3">
+        <label class="fs-1 fw-bolder">
+          {{movieDetails.title}}
+        </label>
+        <label class="fs-4 fw-light">
+          {{'Released: '}} {{movieDetails.releaseDate | date}}
+        </label>
+      </div>
+
+      <div class="d-flex gap-5 pb-3 flex-wrap">
+        <div class="details-items-with-icons flex-grow-1">
+          <label class="details-label fs-4">{{'Your Rate'}}</label>
+          <p-rating [(ngModel)]="rateValue"
+                    (ngModelChange)="onSelectingRate(rateValue)"
+          ></p-rating>
+        </div>
+
+        <div class="d-flex gap-5">
+          <!-- Favourite Icon-->
+          <div class="details-items-with-icons">
+            <label class="details-label fs-4">{{'TMDB Rate'}}</label>
+            <div class="d-flex align-items-center gap-3">
+              <i class="pi pi-bookmark{{favouriteMoviesListIds.includes(movieDetails.id)? '-fill' : ''}} btn-icon-action"
+                 [class.mark-favourite]="favouriteMoviesListIds.includes(movieDetails.id)"
+                 (click)="onSelectingBookmark(movieDetails)"
+                 [pTooltip]="(favouriteMoviesListIds.includes(movieDetails.id))?
+               'Remove from Favourite' : 'Add to Favourite'"
+                 tooltipPosition="bottom"
+              ></i>
+            </div>
+          </div>
+          <!-- Rate Icon-->
+          <div class="details-items-with-icons">
+            <label class="details-label fs-4">{{'TMDB Rate'}}</label>
+            <div class="d-flex align-items-center gap-3">
+              <i class="pi pi-star-fill details-icon-size"></i>
+              <label class="fs-4">{{movieDetails.voteAverage}}{{'/10'}}</label>
+            </div>
+          </div>
+          <!-- Popularity Icon-->
+          <div class="details-items-with-icons">
+            <label class="details-label fs-4">{{'Popularity'}}</label>
+            <div class="d-flex align-items-center gap-3">
+              <i class="pi pi-chart-line details-icon-size"></i>
+              <label class="fs-4"> {{movieDetails.popularity}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label class="fs-2 fw-bold">{{'Overview'}}</label>
+        <p class="fs-3 pt-3"> {{movieDetails.overview}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column">
+    <label class="fs-1 fw-bolder"> {{'User Reviews'}}</label>
+
+    <div class="d-flex flex-column" *ngFor="let item of movieReviews">
+      <label class="fs-3 fw-bold">{{item.author | titlecase}}</label>
+      <label class="fs-5 pb-3">
+        {{'Created at: '}}{{item.createdAt | date}}</label>
+      <p class="fs-5">{{item.content}}</p>
+    </div>
+  </div>
+</div>
