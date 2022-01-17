@@ -72,10 +72,6 @@ export class AllMoviesListComponent implements OnInit {
     }
   }
 
-  resetLocalStorage() {
-    localStorage.clear()
-  }
-
   updateStorageWithFavourite(item: SingleMovieResult, action: 'add' | 'remove'): void {
     if (action === 'add') {
       this.favouriteMoviesList.push(item);
