@@ -6,7 +6,9 @@ export const environment = {
   production: false,
   apiKey: '8e284ca4ef12888567f986b68a394bda',
   apiKeyAsParams: '?api_key=8e284ca4ef12888567f986b68a394bda',
-  httpApi: 'https://api.themoviedb.org/3'
+  httpApi: 'https://api.themoviedb.org/3',
+  httpApi4: 'https://api.themoviedb.org/4',
+  accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTI4NGNhNGVmMTI4ODg1NjdmOTg2YjY4YTM5NGJkYSIsInN1YiI6IjYxZGYxMmJlMDcyOTFjMDA2N2ZkM2E1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uojbbe2x3MXIoUHY11_vt85dKltvItz2KYX5RZyutIE'
 };
 
 /*

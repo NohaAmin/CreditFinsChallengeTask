@@ -1,4 +1,4 @@
-<div class="homepage-container container-fluid position-relative p-0">
+<div class="container-fluid p-0">
 
   <div class="homepage-header d-flex align-items-center px-3">
     <p-selectButton
@@ -12,7 +12,7 @@
 
   </div>
 
-  <div class="all-items-container d-flex flex-column w-100">
+  <div *ngIf="allMoviesList" class="all-items-container d-flex flex-column w-100">
 
     <div class="single-item-container">
       <div class="py-3 px-5 d-flex gap-3 align-items-center"

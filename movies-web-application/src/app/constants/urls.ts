@@ -8,4 +8,6 @@ export class Urls {
   public static readonly LARGE_IMAGE_PREFIX_URL = 'https://image.tmdb.org/t/p/w500';
   public static readonly MOVIE_USER_REVIEWS = 'reviews';
   public static readonly RATE_MOVIE = 'rating';
+  public static readonly GET_USER_PERMISSION4 = 'https://www.themoviedb.org/auth/access';
+  public static readonly AUTH_REQUEST_TOKEN_4 = 'auth/request_token';
 }

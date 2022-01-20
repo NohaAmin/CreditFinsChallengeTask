@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Urls} from "../constants/urls";
@@ -12,12 +12,17 @@ export class AuthenticationService {
   constructor(protected http: HttpClient) {
   }
 
-  getRequestToken(): Observable<string> {
+  getRequestToken(): Observable<any> {
     return this.http.get<any>(`${environment.httpApi}/${Urls.CREATE_REQUEST_TOKEN}`, {
       params: new HttpParams().set('api_key', environment.apiKey)
-    }).pipe(map((res) => {
-      return res?.request_token as string
-    }))
+      , headers: new HttpHeaders()
+        .set('Content-Type', 'application/json;charset=utf-8')
+        .set('Authorization', `Bearer ${environment.accessToken}`)
+        .set('Access-Control-Allow-Origin', '*')
+        .set('Access-Control-Allow-Headers', 'Content-Type')
+        .set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        .set('Access-Control-Allow-Credentials', 'true')
+    })
   }
 
   getUserPermission(token: string): Observable<any> {
@@ -26,7 +31,10 @@ export class AuthenticationService {
         params: new HttpParams()
           .set('redirect_to', 'http://localhost:4200/approved')
         , headers: new HttpHeaders()
+          .set('Content-Type', 'application/json;charset=utf-8')
+          .set('Authorization', `Bearer ${environment.accessToken}`)
           .set('Access-Control-Allow-Origin', '*')
+          .set('Access-Control-Allow-Headers', 'Content-Type')
           .set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
           .set('Access-Control-Allow-Credentials', 'true')
       })

@@ -5,7 +5,6 @@ import {MoviesTypes} from "../../enums/movies-types";
 import {Urls} from "../../constants/urls";
 import {Router} from "@angular/router";
 import {MovieListInfo} from "../../models/movie-list-info";
-import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-all-movies-list',
@@ -25,13 +24,15 @@ export class AllMoviesListComponent implements OnInit {
     {label: 'Favourite', value: 'Favourite'}]
 
   constructor(private moviesApiService: MoviesApiService,
-              // private cdr: ChangeDetectorRef,
+              private cdr: ChangeDetectorRef,
               private router: Router) {
   }
 
   ngOnInit(): void {
-    Object.values(localStorage).forEach((k: string) =>
-      this.favouriteMoviesList.push(JSON.parse(k)));
+    Object.entries(localStorage).forEach((k) => {
+      if (k[0].startsWith('movie'))
+        this.favouriteMoviesList.push(JSON.parse(k[1]))
+    })
     this.favouriteMoviesListIds = this.favouriteMoviesList
       .map((m) => m.id);
     this.updateServiceWithFavourite();
@@ -40,8 +41,13 @@ export class AllMoviesListComponent implements OnInit {
 
   getMoviesListWithPagination(pageNumber: number = 1): void {
     this.moviesApiService.getAllMoviesList(MoviesTypes.NOW_PLAYING, pageNumber).subscribe((res) => {
-      this.moviesListInfo = res;
-      this.allMoviesList = res.results;
+      this.allMoviesList = [];
+      this.cdr.detectChanges();
+      setTimeout(()=> {
+        this.moviesListInfo = res;
+        this.allMoviesList = res.results;
+        this.cdr.detectChanges()
+      },0);
     });
   }
 
@@ -52,7 +58,6 @@ export class AllMoviesListComponent implements OnInit {
   onSelectingListType($event: any) {
     this.selectedView = $event.value as ('All Movies' | 'Favourite');
     this.allFavouriteMoviesList = this.moviesApiService.getFavouriteMovies()
-    // this.cdr.detectChanges();
   }
 
   showDetails(id: number) {
@@ -62,12 +67,12 @@ export class AllMoviesListComponent implements OnInit {
   onSelectingBookmark(item: SingleMovieResult) {
     if (this.favouriteMoviesListIds.includes(item.id)) {
       Object.keys(localStorage).forEach((k) => {
-        if (+k === item.id)
+        if (+k.substring(5) === item.id)
           localStorage.removeItem(k)
       })
       this.updateStorageWithFavourite(item, 'remove')
     } else {
-      localStorage.setItem(item.id.toString(), JSON.stringify(item));
+      localStorage.setItem(`movie${item.id.toString()}`, JSON.stringify(item));
       this.updateStorageWithFavourite(item, 'add')
     }
   }
